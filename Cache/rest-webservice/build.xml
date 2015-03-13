@@ -1,0 +1,61 @@
+<project name="rest-webservice"
+    xmlns:ivy="antlib:org.apache.ivy.ant" default="limpa-build">
+    
+	<path id="deploy.tasks.class.path">
+        <fileset dir="build-lib" includes="*.jar" />
+    </path>
+    
+	<property file="build.properties"/>
+	
+	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="deploy.tasks.class.path" />
+
+	
+	<target name="limpar">
+        <delete dir="WebContent/WEB-INF/lib" />
+        <mkdir dir="WebContent/WEB-INF/lib" />
+        <delete dir="build"/>
+        <delete dir="lib"/>
+        <delete dir="lib-teste"/>
+        <mkdir dir="build"/>
+        <mkdir dir="build/classes"/>
+        <mkdir dir="lib"/>
+        <mkdir dir="lib-teste"/>
+    </target>
+	
+	
+    <target name="proxy" depends="limpar">
+        <setproxy proxyhost="172.20.200.95" proxyport="9090"/>
+    </target>
+    
+	
+	<target name="atualiza-dependencias" depends="proxy">
+        <ivy:retrieve pattern="WebContent/WEB-INF/lib/[artifact]-[revision].[ext]" conf="webapp" />
+        <ivy:retrieve pattern="lib-teste/[artifact]-[revision].[ext]" conf="teste" />
+    </target>
+    
+	
+	<target name="compilar" depends="atualiza-dependencias">
+        <javac destdir="build/classes" srcdir="src" target="1.7" source="1.7">
+            <classpath>
+                <fileset dir="WebContent/WEB-INF/lib">
+                    <include name="*.jar" />
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+    
+	
+	<target name="empacota-war" depends="compilar">
+        <war destfile="build/rest-webservice.war" webxml="WebContent/WEB-INF/web.xml">
+            <fileset dir="WebContent" />
+            <classes dir="build/classes" />
+        </war>
+    </target>    
+	
+	<target name="limpa-build" depends="compilar"
+				    		description="Limpa arquivos do Build corrente">
+        <delete dir="build"/>
+    </target>
+
+
+</project>

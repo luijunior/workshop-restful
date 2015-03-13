@@ -1,0 +1,25 @@
+<ivy-module version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info module="login" organisation="br.com.ipiranga" />
+
+	<configurations>
+		<conf name="webapp" />
+		<conf name="teste" />
+	</configurations>
+
+	<dependencies>
+		<dependency org="junit" name="junit" rev="4.11" conf="teste->default"/>
+		<dependency org="org.springframework" name="spring-webmvc" rev="4.1.4.RELEASE" conf="webapp->default"/>
+		<dependency org="jstl" name="jstl" rev="1.2" conf="webapp->default"/>
+		<dependency org="org.glassfish.jersey.containers" name="jersey-container-servlet" rev="2.12" conf="webapp->default"/>
+		<dependency org="org.glassfish.jersey.media" name="jersey-media-json-jackson" rev="2.9.1" conf="webapp->default"/>
+		<dependency org="org.glassfish.jersey.ext" name="jersey-spring3" rev="2.12" conf="webapp->default"/>
+  		<!-- Security --> 
+  		<dependency org="org.apache.ws.security" name="wss4j" rev="1.6.18" conf="webapp->default"/>
+  		<dependency org="org.apache.cxf" name="cxf-rt-frontend-jaxws" rev="3.0.4" conf="webapp->default"/>
+  		<dependency org="org.apache.cxf" name="cxf-rt-transports-http-jetty" rev="3.0.4" conf="webapp->default"/>
+	</dependencies>
+
+</ivy-module>
