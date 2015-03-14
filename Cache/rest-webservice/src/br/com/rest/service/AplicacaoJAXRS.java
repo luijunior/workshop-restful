@@ -15,8 +15,9 @@ public class AplicacaoJAXRS extends ResourceConfig{
 	public AplicacaoJAXRS(){
 		super(JacksonFeature.class);
 		register(RequestContextFilter.class);
-		register(ServicoSemCache.class);
-		register(ServicoComCache.class);
+		register(CacheNoBrowser.class);
+		register(CacheNoServer.class);
+		register(SemCache.class);
 		register(AlteraCliente.class);
 
 	}

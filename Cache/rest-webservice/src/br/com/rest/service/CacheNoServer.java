@@ -18,13 +18,13 @@ import br.com.rest.dao.ClienteDao;
 import br.com.rest.service.modelo.Cliente;
 import br.com.rest.service.modelo.ClienteInexistente;
 
-@Path("/comCache")
-public class ServicoComCache {
+@Path("/noServer")
+public class CacheNoServer {
 	
 private ClienteDao clienteDao;
 	
 	@Autowired
-	public ServicoComCache(ClienteDao clienteDao) {
+	public CacheNoServer(ClienteDao clienteDao) {
 		this.clienteDao = clienteDao;
 	}
 	
@@ -40,10 +40,11 @@ private ClienteDao clienteDao;
 			cliente = this.clienteDao.buscaUltimoAlteradoPorCpf(cpf);
 			EntityTag etag = configuraTag(cliente);
 			System.out.println(etag.getValue());
+			
 			ResponseBuilder builder = request.evaluatePreconditions(etag);
 			if(builder!=null){
 				System.out.println("Com cache");
-				builder.cacheControl(configuraCache());
+				//builder.cacheControl(configuraCache());
 		       return builder.build();
 
 			}

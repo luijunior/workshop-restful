@@ -14,12 +14,12 @@ import br.com.rest.service.modelo.Cliente;
 import br.com.rest.service.modelo.ClienteInexistente;
 
 @Path("/semCache")
-public class ServicoSemCache {
+public class SemCache {
 	
 	private ClienteDao clienteDao;
 	
 	@Autowired
-	public ServicoSemCache(ClienteDao clienteDao) {
+	public SemCache(ClienteDao clienteDao) {
 		this.clienteDao = clienteDao;
 	}
 	
