@@ -18,6 +18,10 @@ public class ClienteMemoria implements ClienteDao{
 		cliente.setCpf("12312312345");
 		cliente.setNome("Luiz Antonio");
 		clientes.add(cliente);
+		cliente = new Cliente();
+		cliente.setCpf("09876543212");
+		cliente.setNome("Valdeir Pedro");
+		clientes.add(cliente);
 	}
 
 	@Override
@@ -29,8 +33,9 @@ public class ClienteMemoria implements ClienteDao{
 		}
 
 		for (Cliente cli : clientes){
-			if(cli.getCpf().equals(cpf));
-			return clientes.get(clientes.indexOf(cli));
+			if(cli.getCpf().equals(cpf)){
+				return cli;
+			}
 		}
 
 		throw new ClienteInexistente("Cliente inexistente",new Exception("Erro"), 404);
@@ -40,8 +45,9 @@ public class ClienteMemoria implements ClienteDao{
 	@Override
 	public Cliente buscaUltimoAlteradoPorCpf(String cpf) throws ClienteInexistente{
 		for (Cliente cli : clientes){
-			if(cli.getCpf().equals(cpf));
-			return clientes.get(clientes.indexOf(cli));
+			if(cli.getCpf().equals(cpf)){
+				return cli;
+			}
 		}
 
 		throw new ClienteInexistente("Cliente inexistente",new Exception("Erro"), 404);

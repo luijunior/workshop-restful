@@ -26,8 +26,8 @@ private ClienteDao clienteDao;
 	
 	@PUT
 	@Path("/{cpf}")
-	@Consumes(value={MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	@Produces(value={MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@Consumes(value={MediaType.APPLICATION_JSON})
+	@Produces(value={MediaType.APPLICATION_JSON})
 	public Response atualizaExistente(@PathParam("cpf") String cpf , Cliente cliente){
 		
 		cliente.setCpf(cpf);

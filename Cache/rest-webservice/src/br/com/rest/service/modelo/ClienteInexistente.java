@@ -1,8 +1,10 @@
 package br.com.rest.service.modelo;
 
+import javax.ws.rs.core.Response;
 
 
-public class ClienteInexistente extends Exception {
+
+public class ClienteInexistente extends RestException {
 
 	/**
 	 * 
@@ -11,7 +13,7 @@ public class ClienteInexistente extends Exception {
 	private Erro erro;
 	
 	public ClienteInexistente(String msg,Exception e,int status) {
-		super(msg,e);
+		super(e);
 		erro = new Erro();
 		erro.setMensagem(msg);
 		erro.setStatus(status);
@@ -23,6 +25,12 @@ public class ClienteInexistente extends Exception {
 
 	public void setErro(Erro erro) {
 		this.erro = erro;
+	}
+
+	@Override
+	public Response responde() {
+		// TODO Auto-generated method stub
+		return Response.status(erro.getStatus()).entity(erro).build();
 	}
 
 }

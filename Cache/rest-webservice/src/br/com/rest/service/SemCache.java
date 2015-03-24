@@ -36,7 +36,7 @@ public class SemCache {
 			return Response.status(200).entity(cliente).build();
 		} catch (ClienteInexistente e) {
 			// TODO Auto-generated catch block
-			return Response.status(e.getErro().getStatus()).entity(e.getErro()).build();
+			return e.responde();
 		}
 		
 

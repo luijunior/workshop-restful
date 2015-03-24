@@ -1,12 +1,15 @@
 package br.com.rest.service.modelo;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 public class Erro {
 	
 	private int status;
 	private String mensagem;
+	
+	@XmlTransient
 	public int getStatus() {
 		return status;
 	}

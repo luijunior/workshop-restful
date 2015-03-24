@@ -1,5 +1,5 @@
 <project name="rest-webservice"
-    xmlns:ivy="antlib:org.apache.ivy.ant" default="limpa-build">
+    xmlns:ivy="antlib:org.apache.ivy.ant" default="empacota-war">
     
 	<path id="deploy.tasks.class.path">
         <fileset dir="build-lib" includes="*.jar" />
@@ -52,10 +52,5 @@
         </war>
     </target>    
 	
-	<target name="limpa-build" depends="compilar"
-				    		description="Limpa arquivos do Build corrente">
-        <delete dir="build"/>
-    </target>
-
 
 </project>

@@ -4,7 +4,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.MediaType;
@@ -18,7 +17,7 @@ import br.com.rest.dao.ClienteDao;
 import br.com.rest.service.modelo.Cliente;
 import br.com.rest.service.modelo.ClienteInexistente;
 
-@Path("/noServer")
+@Path("/cliente")
 public class CacheNoServer {
 	
 private ClienteDao clienteDao;
@@ -30,17 +29,15 @@ private ClienteDao clienteDao;
 	
 	
 	@GET
-	@Path("/cliente/{cpf}")
-	@Produces(value={MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@Path("/server/{cpf}")
+	@Produces(value={MediaType.APPLICATION_JSON})
 	public Response buscaCliente(@PathParam("cpf")String cpf , @Context Request  request){
 		
 		Cliente cliente;
 		try {
-			System.out.println("Chamando servico no servidor com cache");
-			cliente = this.clienteDao.buscaUltimoAlteradoPorCpf(cpf);
+			//cliente = this.clienteDao.buscaUltimoAlteradoPorCpf(cpf);
+			cliente = this.clienteDao.buscaPorCpf(cpf);
 			EntityTag etag = configuraTag(cliente);
-			System.out.println(etag.getValue());
-			
 			ResponseBuilder builder = request.evaluatePreconditions(etag);
 			if(builder!=null){
 				System.out.println("Com cache");
@@ -50,19 +47,12 @@ private ClienteDao clienteDao;
 			}
 			System.out.println("Sem cache");
 			cliente = this.clienteDao.buscaPorCpf(cpf);
-			builder = Response.ok().entity(cliente).tag(etag).cacheControl(configuraCache());
+			builder = Response.ok().entity(cliente).tag(etag);
 			return builder.build();
 		} catch (ClienteInexistente e) {
 			// TODO Auto-generated catch block
-			return Response.status(e.getErro().getStatus()).entity(e.getErro()).build();
+			return e.responde();
 		}
-	}
-	
-	private CacheControl configuraCache(){
-		
-		CacheControl cc = new CacheControl();
-        cc.setMaxAge(50000);
-        return cc;
 	}
 	
 	private EntityTag configuraTag(Cliente cliente){
