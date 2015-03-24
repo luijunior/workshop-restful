@@ -13,7 +13,7 @@ import br.com.rest.dao.ClienteDao;
 import br.com.rest.service.modelo.Cliente;
 import br.com.rest.service.modelo.ClienteInexistente;
 
-@Path("/semCache")
+@Path("/cliente")
 public class SemCache {
 	
 	private ClienteDao clienteDao;
@@ -25,7 +25,7 @@ public class SemCache {
 	
 	
 	@GET
-	@Path("/cliente/{cpf}")
+	@Path("/semCache/{cpf}")
 	@Produces(value={MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response buscaCliente(@PathParam("cpf")String cpf){
 		
